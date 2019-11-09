@@ -1842,7 +1842,83 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      faq: {
+        'id': 1,
+        'question': 'hardcoded!',
+        'answer': 'later'
+      }
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    console.log('pred created');
+    return;
+    var uri = '/faqs/1';
+    console.log(uri, this.axios);
+    this.axios.get(uri).then(function (response) {
+      console.log('created', response);
+      _this.faq = response.data.data;
+    })["catch"](function (error) {
+      console.log('catch get', error);
+    });
+  },
+  methods: {
+    deleteFaq: function deleteFaq() {
+      var uri = "/faqs/".concat(this.faq.id);
+      console.log('deleteFlag', this.axios, uri, this);
+      this.axios["delete"](uri).then(function (response) {
+        console.log(response);
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    getFaq: function getFaq(id) {
+      var _this2 = this;
+
+      var uri = "/faqs/".concat(id);
+      console.log('getFaq');
+      this.axios.get(uri).then(function (response) {
+        console.log(response);
+        _this2.faq = response.data;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    updateFaq: function updateFaq() {
+      console.log('updateFaq', this.faq);
+      this.faq.answer = 'updated .';
+      var uri = "/faqs/".concat(this.faq.id);
+      this.axios.put(uri, this.faq).then(function (response) {
+        console.log(response);
+      })["catch"](function (error) {
+        console.log(error);
+      });
+      /*
+       */
+    },
+    postFaq: function postFaq() {
+      console.log('postFaq', this.faq);
+      var uri = "/faqs";
+      this.axios.post(uri, this.faq).then(function (response) {
+        console.log(response);
+      })["catch"](function (error) {
+        console.log(error);
+      });
+      /*
+       */
+    }
+  }
+});
 
 /***/ }),
 
@@ -19485,7 +19561,65 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("p", [_vm._v("About")])
+  return _c("div", [
+    _c("p", [_vm._v("About")]),
+    _vm._v(" "),
+    _c(
+      "button",
+      {
+        staticClass: "btn btn-danger",
+        on: {
+          click: function($event) {
+            $event.preventDefault()
+            return _vm.postFaq()
+          }
+        }
+      },
+      [_vm._v("C PostFaq")]
+    ),
+    _vm._v(" "),
+    _c(
+      "button",
+      {
+        staticClass: "btn btn-danger",
+        on: {
+          click: function($event) {
+            $event.preventDefault()
+            return _vm.getFaq(11)
+          }
+        }
+      },
+      [_vm._v("R getFaq")]
+    ),
+    _vm._v(" "),
+    _c(
+      "button",
+      {
+        staticClass: "btn btn-danger",
+        on: {
+          click: function($event) {
+            $event.preventDefault()
+            return _vm.updateFaq()
+          }
+        }
+      },
+      [_vm._v("U updateFaq")]
+    ),
+    _vm._v(" "),
+    _c(
+      "button",
+      {
+        staticClass: "btn btn-danger",
+        on: {
+          click: function($event) {
+            $event.preventDefault()
+            return _vm.deleteFaq()
+          }
+        }
+      },
+      [_vm._v("Delete")]
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -34562,12 +34696,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
 /* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./routes */ "./resources/js/routes.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
 
-
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
+ // import VueAxios from 'vue-axios';
+
+ //Vue.use(VueAxios, axios);
+//Vue.use(axios);
+
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.prototype.axios = axios__WEBPACK_IMPORTED_MODULE_3___default.a;
 var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   el: '#app',
   router: new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"](_routes__WEBPACK_IMPORTED_MODULE_2__["default"])
@@ -34611,14 +34752,15 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /*!*******************************************!*\
   !*** ./resources/js/components/About.vue ***!
   \*******************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _About_vue_vue_type_template_id_fb05e49c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./About.vue?vue&type=template&id=fb05e49c& */ "./resources/js/components/About.vue?vue&type=template&id=fb05e49c&");
 /* harmony import */ var _About_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./About.vue?vue&type=script&lang=js& */ "./resources/js/components/About.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _About_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _About_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -34648,7 +34790,7 @@ component.options.__file = "resources/js/components/About.vue"
 /*!********************************************************************!*\
   !*** ./resources/js/components/About.vue?vue&type=script&lang=js& ***!
   \********************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

@@ -11,6 +11,12 @@
 |
 */
 
+Route::get('/faqs', 'FaqController@index');
+Route::post('/faqs', 'FaqController@store');
+Route::get('/faqs/{faq}', 'FaqController@show');
+Route::put('/faqs/{faq}', 'FaqController@update');
+Route::delete('/faqs/{faq}', 'FaqController@destroy');
+
 Route::get('/{any?}', function () {
     return view('welcome');
 });
