@@ -2,7 +2,7 @@
 	<div>
 		<p>About</p>
 		<button class="btn btn-danger" @click.prevent="postFaq()">C PostFaq</button>
-		<button class="btn btn-danger" @click.prevent="getFaq(11)">R getFaq</button>
+		<button class="btn btn-danger" @click.prevent="getFaq(1)">R getFaq</button>
 		<button class="btn btn-danger" @click.prevent="updateFaq()">U updateFaq</button>
 		<button class="btn btn-danger" @click.prevent="deleteFaq()">Delete</button>
 	</div>
@@ -15,7 +15,7 @@
           faq: {
           	'id': 1,
           	'question': 'hardcoded!',
-          	'answer': 'later'
+          	'answer': 'later will be answered.'
           }
         }
       },
@@ -61,7 +61,7 @@
       updateFaq()
       {	
       	console.log('updateFaq',this.faq);
-      	this.faq.answer='updated .';
+      	this.faq.answer='updated asd';
         let uri = `/faqs/${this.faq.id}`;
         this.axios.put(uri, this.faq).then(response => {
         	console.log(response);

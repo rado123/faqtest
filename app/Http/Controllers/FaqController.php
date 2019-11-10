@@ -37,11 +37,7 @@ class FaqController extends Controller
      */
     public function store(Request $request)
     {
-/*
-        $request()->validate([
-            'question' => 'required'
-        ]);
-*/
+        $this->validateFaq($request);
         $faq=new Faq();
         $faq->question=$request->json('question');
         $faq->answer=$request->json('answer');
@@ -81,20 +77,8 @@ class FaqController extends Controller
      */
     public function update(Request $request, Faq $faq)
     {
-        /*
-        $request()->validate([
-            'question' => 'required'
-        ]);
-        */
-        $validator = Validator::make($request->all(), [
-            'answer' => 'required',
-        ]);
-
-        if ($validator->fails()) {
-            return "validation fails";
-        }
-
-        $faq->question=$request->json('question');
+        $this-> validateFaq($request);
+        $faq->question=request('question');
         $faq->answer=$request->json('answer');
         $faq->save();
         return "successfully updated";
@@ -112,4 +96,15 @@ class FaqController extends Controller
         $faq->delete();
         return "successfully deleted";
     }
+
+ protected function validateFaq(Request $request)
+ {
+    return $request->validate([
+                'question' => ['required']
+    ]);     
+ }
+
+ 
+
+
 }
