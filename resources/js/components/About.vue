@@ -21,7 +21,7 @@
       },
       created() {
       	  console.log('pred created');
-    },
+     },
     methods: {
       deleteFaq()
       {

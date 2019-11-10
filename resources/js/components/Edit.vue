@@ -11,14 +11,14 @@
                 <div class="message-body">
                     <div class="form-group">
                      <label>Vprašanje</label>
-                     <textarea class="form-control" v-model="faq.question" rows="5"></textarea>
+                     <textarea class="textarea" v-model="faq.question" rows="2"></textarea>
 
                     </div>
                 </div>
                 <div class="message-body">
                     <div class="form-group">
                      <label>Odgovor</label>
-                     <textarea class="form-control" v-model="faq.answer" rows="5"></textarea>
+                     <textarea class="textarea" v-model="faq.answer" rows="5"></textarea>
 
                     </div>
                 </div>
@@ -65,12 +65,15 @@
               { 
                 console.log('updateFaq',this.faq);
                 let uri = `/faqs/${this.faq.id}`;
-                this.axios.put(uri, this.faq).then(response => {
-                  console.log(response);
-                })
-                .catch(error =>{
-                  console.log(error);
-                });
+                this.axios.put(uri, this.faq)
+                .then(response => {
+	              console.log(response);
+	              alert('faq shranjen');
+	            })
+	            .catch(error =>{
+	              console.log(error);
+	              alert('napaka', error);
+	            });
                }
 	     }
 
