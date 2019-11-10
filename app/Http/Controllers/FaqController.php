@@ -77,9 +77,9 @@ class FaqController extends Controller
      */
     public function update(Request $request, Faq $faq)
     {
-        $this-> validateFaq($request);
+        $this->validateFaq($request);
         $faq->question=request('question');
-        $faq->answer=$request->json('answer');
+        $faq->answer=request('answer');
         $faq->save();
         return "successfully updated";
 
