@@ -20,19 +20,7 @@
         }
       },
       created() {
-
       	  console.log('pred created');
-	      return;
-	      let uri = '/faqs/1';
-      	  console.log(uri,this.axios);
-    	  this.axios.get(uri)
-    	  .then(response => {
-     		console.log('created', response);
-        	this.faq = response.data.data;
-      	  })
-      	  .catch( error => {
-      	  	console.log('catch get', error);
-      	  });
     },
     methods: {
       deleteFaq()
@@ -61,7 +49,6 @@
       updateFaq()
       {	
       	console.log('updateFaq',this.faq);
-      	this.faq.answer='updated asd';
         let uri = `/faqs/${this.faq.id}`;
         this.axios.put(uri, this.faq).then(response => {
         	console.log(response);

@@ -16,11 +16,15 @@ export default {
 			component: About,
 			name: 'about'
 		},
-
 		{
-			path: '/faqs/create',
+			path: '/create',
 			component: Create,
 			name: 'create'
+		},
+		{
+			path: '/edit/:id',
+			component: Edit,
+			name: 'edit'
 		}
 
 	]

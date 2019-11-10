@@ -1859,18 +1859,7 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   created: function created() {
-    var _this = this;
-
     console.log('pred created');
-    return;
-    var uri = '/faqs/1';
-    console.log(uri, this.axios);
-    this.axios.get(uri).then(function (response) {
-      console.log('created', response);
-      _this.faq = response.data.data;
-    })["catch"](function (error) {
-      console.log('catch get', error);
-    });
   },
   methods: {
     deleteFaq: function deleteFaq() {
@@ -1883,20 +1872,19 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     getFaq: function getFaq(id) {
-      var _this2 = this;
+      var _this = this;
 
       var uri = "/faqs/".concat(id);
       console.log('getFaq');
       this.axios.get(uri).then(function (response) {
         console.log(response);
-        _this2.faq = response.data;
+        _this.faq = response.data;
       })["catch"](function (error) {
         console.log(error);
       });
     },
     updateFaq: function updateFaq() {
       console.log('updateFaq', this.faq);
-      this.faq.answer = 'updated asd';
       var uri = "/faqs/".concat(this.faq.id);
       this.axios.put(uri, this.faq).then(function (response) {
         console.log(response);
@@ -1949,9 +1937,46 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      faq: {}
+    };
+  },
   mounted: function mounted() {
     console.log('Component mounted.');
+  },
+  methods: {
+    addFaq: function addFaq() {
+      var uri = "/faqs";
+      this.axios.post(uri, this.faq).then(function (response) {
+        console.log(response);
+        alert('faq ustvarjen');
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    }
   }
 });
 
@@ -1980,9 +2005,62 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      faq: {}
+    };
+  },
   mounted: function mounted() {
     console.log('Component mounted.');
+  },
+  created: function created() {
+    var _this = this;
+
+    console.log('komponenta kreirana', this.$route.params.id); // get faq po id
+
+    var id = this.$route.params.id;
+    var uri = "/faqs/".concat(id);
+    this.axios.get(uri).then(function (response) {
+      console.log(response);
+      _this.faq = response.data;
+    })["catch"](function (error) {
+      console.log(error);
+    });
+  },
+  methods: {
+    updateFaq: function updateFaq() {
+      console.log('updateFaq', this.faq);
+      var uri = "/faqs/".concat(this.faq.id);
+      this.axios.put(uri, this.faq).then(function (response) {
+        console.log(response);
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    }
   }
 });
 
@@ -19711,27 +19789,100 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "container" }, [
+    _c("h1", { staticClass: "title is-4" }, [_vm._v("Nov faq")]),
+    _vm._v(" "),
+    _c(
+      "form",
+      {
+        on: {
+          submit: function($event) {
+            $event.preventDefault()
+            return _vm.addFaq($event)
+          }
+        }
+      },
+      [
+        _c("div", { staticClass: "columns is-centered" }, [
+          _c("div", { staticClass: "column is-one-half" }, [
+            _c("div", { staticClass: "message" }, [
+              _c("div", { staticClass: "message-header" }, [
+                _vm._v("\n                Faq\n              ")
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "message-body" }, [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", [_vm._v("Vprašanje")]),
+                  _vm._v(" "),
+                  _c("textarea", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.faq.question,
+                        expression: "faq.question"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { rows: "5" },
+                    domProps: { value: _vm.faq.question },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.faq, "question", $event.target.value)
+                      }
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "message-body" }, [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", [_vm._v("Odgovor")]),
+                  _vm._v(" "),
+                  _c("textarea", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.faq.answer,
+                        expression: "faq.answer"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { rows: "5" },
+                    domProps: { value: _vm.faq.answer },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.faq, "answer", $event.target.value)
+                      }
+                    }
+                  })
+                ])
+              ])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("br"),
+        _vm._v(" "),
+        _vm._m(0)
+      ]
+    )
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "columns is-centered" }, [
-        _c("div", { staticClass: "column is-one-half" }, [
-          _c("div", { staticClass: "message" }, [
-            _c("div", { staticClass: "message-header" }, [
-              _vm._v("\n                Create Component\n              ")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "message-body" }, [
-              _vm._v("\n                create body\n              ")
-            ])
-          ])
-        ])
-      ])
+    return _c("div", { staticClass: "form-group" }, [
+      _c("button", { staticClass: "button" }, [_vm._v("Ustvari faq")])
     ])
   }
 ]
@@ -19756,25 +19907,104 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "container" }, [
+    _c("h1", { staticClass: "title is-4" }, [_vm._v("Edit faq")]),
+    _vm._v(" "),
+    _c(
+      "form",
+      {
+        on: {
+          submit: function($event) {
+            $event.preventDefault()
+            return _vm.updateFaq($event)
+          }
+        }
+      },
+      [
+        _c("div", { staticClass: "columns is-centered" }, [
+          _c("div", { staticClass: "column is-one-half" }, [
+            _c("div", { staticClass: "message" }, [
+              _c("div", { staticClass: "message-header" }, [
+                _vm._v(
+                  "\n                id=" +
+                    _vm._s(_vm.faq.id) +
+                    "\n              "
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "message-body" }, [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", [_vm._v("Vprašanje")]),
+                  _vm._v(" "),
+                  _c("textarea", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.faq.question,
+                        expression: "faq.question"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { rows: "5" },
+                    domProps: { value: _vm.faq.question },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.faq, "question", $event.target.value)
+                      }
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "message-body" }, [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", [_vm._v("Odgovor")]),
+                  _vm._v(" "),
+                  _c("textarea", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.faq.answer,
+                        expression: "faq.answer"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { rows: "5" },
+                    domProps: { value: _vm.faq.answer },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.faq, "answer", $event.target.value)
+                      }
+                    }
+                  })
+                ])
+              ])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("br"),
+        _vm._v(" "),
+        _vm._m(0)
+      ]
+    )
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "col-md-8" }, [
-        _c("div", { staticClass: "card card-default" }, [
-          _c("div", { staticClass: "card-header" }, [_vm._v("Edit Component")]),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-body" }, [
-            _vm._v(
-              "\n                I'm the Edit Component component.\n            "
-            )
-          ])
-        ])
-      ])
+    return _c("div", { staticClass: "form-group" }, [
+      _c("button", { staticClass: "button" }, [_vm._v("Shrani")])
     ])
   }
 ]
@@ -35215,9 +35445,13 @@ __webpack_require__.r(__webpack_exports__);
     component: _components_About__WEBPACK_IMPORTED_MODULE_1__["default"],
     name: 'about'
   }, {
-    path: '/faqs/create',
+    path: '/create',
     component: _components_Create__WEBPACK_IMPORTED_MODULE_2__["default"],
     name: 'create'
+  }, {
+    path: '/edit/:id',
+    component: _components_Edit__WEBPACK_IMPORTED_MODULE_3__["default"],
+    name: 'edit'
   }]
 });
 
