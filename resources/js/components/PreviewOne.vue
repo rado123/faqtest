@@ -24,14 +24,17 @@
         return {
           faq: this.faqone,
           showAnswer: false
-          
         }
       },
       mounted() {
         this.showAnswer = this.show;
       },
+      computed: {
+        this.showAnswer = this.show;
+      },
       methods: {
           toggleShow(){
+              console.log('toggleShow');
               this.showAnswer=this.showAnswer ? false : true;            
           },
           collapseButton() {
