@@ -11,7 +11,7 @@
                 <div class="message-body">
                     <div class="form-group">
                      <label>Vprašanje</label>
-                     <textarea class="textarea" v-model="faq.question" rows="2"></textarea>
+                     <textarea class="textarea" v-model="faq.question" rows="1"></textarea>
 
                     </div>
                 </div>
@@ -37,15 +37,17 @@
 
 <script>
 	export default {
+      props: [ 
+          'faqone'
+      ],
       data() {
-        return {
-          faq: {
-          }
+       return {
+          faq: this.faqone,
         }
      },
-	 mounted() {
-            console.log('Component mounted.')
-     },
+  	 mounted() {
+              console.log('Component mounted.')
+       },
      created(){
      		console.log('komponenta kreirana',this.$route.params.id)
      		// get faq po id
@@ -59,7 +61,7 @@
 	        .catch(error =>{
 	        	console.log(error);
 	        });
-	 },
+	   },
      methods: {
         updateFaq()
               { 
@@ -67,13 +69,13 @@
                 let uri = `/faqs/${this.faq.id}`;
                 this.axios.put(uri, this.faq)
                 .then(response => {
-	              console.log(response);
-	              alert('faq shranjen');
-	            })
-	            .catch(error =>{
-	              console.log(error);
-	              alert('napaka', error);
-	            });
+  	              console.log(response);
+  	              alert('faq shranjen');
+  	            })
+  	            .catch(error =>{
+  	              console.log(error);
+  	              alert('napaka', error);
+  	            });
                }
 	     }
 

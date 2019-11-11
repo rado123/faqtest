@@ -11,7 +11,7 @@
                 <div class="message-body">
                     <div class="form-group">
                      <label>Vprašanje</label>
-                     <textarea class="textarea" v-model="faq.question" rows="2"></textarea>
+                     <textarea class="textarea" v-model="faq.question" rows="1"></textarea>
 
                     </div>
                 </div>

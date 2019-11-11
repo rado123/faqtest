@@ -4,8 +4,18 @@
     <a class="button is-light" @click="expandAll">Expand all</a>
     <a class="button is-light" @click="collapseAll">Collapse all</a>
     <ul>
-      <div v-for="faq in faqs">
-         <preview-one  :faqone="faq" ref="previewOne"></preview-one>
+      <div v-for="(faq, index) in faqs">
+         <preview-one  
+              :faqone="faq" 
+              :key="faq.id"  
+              ref="previewOne" 
+              v-on:deleted="onDeleted(index)">
+          </preview-one>
+          <!-- :key,  da briše pravega iz DOM-a po deleted-->
+<!--
+         <p>index={{ index }}</p>
+         <edit :faqone="faq"></edit>
+    -->
       </div>
     </ul>
   </div>
@@ -13,9 +23,11 @@
 
 <script>
   import PreviewOne from './PreviewOne'
+  import Edit from './Edit'
 	export default {
       components: {
-        PreviewOne
+        PreviewOne,
+        Edit
       },
       data() {
         return {
@@ -23,13 +35,7 @@
           showAll: true
         }
       },
-      computed: {
-            showAllStatus () {
-                return this.showAll;
-            }
-      },
   		created()          {
-            console.log('Component created.');
             let uri = `/faqs`;
             this.axios.get(uri).then(response => {
               console.log(response);
@@ -50,9 +56,14 @@
             setShowAnswerAll(value) {
                 const arrayLength = this.$refs.previewOne.length;
                 for (var i = 0; i < arrayLength; i++) {
-                    console.log(i);
                     this.$refs.previewOne[i].setShowAnswer(value);
                 }  
+            },
+            onDeleted(index) {
+              console.log('onDeleted',index);
+              console.log(' pred splice',this.faqs);
+              this.faqs.splice(index, 1);
+              console.log(' po splice',this.faqs);
             }
       }
 	};

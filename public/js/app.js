@@ -2030,9 +2030,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['faqone'],
   data: function data() {
     return {
-      faq: {}
+      faq: this.faqone
     };
   },
   mounted: function mounted() {
@@ -2099,6 +2100,17 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _PreviewOne__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PreviewOne */ "./resources/js/components/PreviewOne.vue");
+/* harmony import */ var _Edit__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Edit */ "./resources/js/components/Edit.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2113,9 +2125,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    PreviewOne: _PreviewOne__WEBPACK_IMPORTED_MODULE_0__["default"]
+    PreviewOne: _PreviewOne__WEBPACK_IMPORTED_MODULE_0__["default"],
+    Edit: _Edit__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   data: function data() {
     return {
@@ -2123,15 +2137,9 @@ __webpack_require__.r(__webpack_exports__);
       showAll: true
     };
   },
-  computed: {
-    showAllStatus: function showAllStatus() {
-      return this.showAll;
-    }
-  },
   created: function created() {
     var _this = this;
 
-    console.log('Component created.');
     var uri = "/faqs";
     this.axios.get(uri).then(function (response) {
       console.log(response);
@@ -2151,9 +2159,14 @@ __webpack_require__.r(__webpack_exports__);
       var arrayLength = this.$refs.previewOne.length;
 
       for (var i = 0; i < arrayLength; i++) {
-        console.log(i);
         this.$refs.previewOne[i].setShowAnswer(value);
       }
+    },
+    onDeleted: function onDeleted(index) {
+      console.log('onDeleted', index);
+      console.log(' pred splice', this.faqs);
+      this.faqs.splice(index, 1);
+      console.log(' po splice', this.faqs);
     }
   }
 });
@@ -2169,6 +2182,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../routes */ "./resources/js/routes.js");
 //
 //
 //
@@ -2185,6 +2199,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['faqone'],
   data: function data() {
@@ -2204,6 +2219,25 @@ __webpack_require__.r(__webpack_exports__);
     // naziv gumba
     collapseButton: function collapseButton() {
       return this.showAnswer ? 'collapse' : 'expand';
+    },
+    editItem: function editItem() {
+      console.log('editItem');
+      _routes__WEBPACK_IMPORTED_MODULE_0__["default"].push('/');
+    },
+    deleteItem: function deleteItem() {
+      var _this = this;
+
+      console.log('delete Item', this.faq.id);
+      var uri = "/faqs/".concat(this.faq.id);
+      this.axios["delete"](uri).then(function (response) {
+        console.log(response);
+        alert('faq deleted');
+
+        _this.$emit('deleted');
+      })["catch"](function (error) {
+        console.log(error);
+        alert('napaka pri delete', error);
+      });
     }
   }
 });
@@ -19948,7 +19982,7 @@ var render = function() {
                       }
                     ],
                     staticClass: "textarea",
-                    attrs: { rows: "2" },
+                    attrs: { rows: "1" },
                     domProps: { value: _vm.faq.question },
                     on: {
                       input: function($event) {
@@ -20070,7 +20104,7 @@ var render = function() {
                       }
                     ],
                     staticClass: "textarea",
-                    attrs: { rows: "2" },
+                    attrs: { rows: "1" },
                     domProps: { value: _vm.faq.question },
                     on: {
                       input: function($event) {
@@ -20203,14 +20237,20 @@ var render = function() {
     _vm._v(" "),
     _c(
       "ul",
-      _vm._l(_vm.faqs, function(faq) {
+      _vm._l(_vm.faqs, function(faq, index) {
         return _c(
           "div",
           [
             _c("preview-one", {
+              key: faq.id,
               ref: "previewOne",
               refInFor: true,
-              attrs: { faqone: faq }
+              attrs: { faqone: faq },
+              on: {
+                deleted: function($event) {
+                  return _vm.onDeleted(index)
+                }
+              }
             })
           ],
           1
@@ -20246,13 +20286,21 @@ var render = function() {
     _c("li", [
       _c("div", { staticClass: "level" }, [
         _c("div", { staticClass: "level-left is-size-4" }, [
-          _vm._v(" Q: " + _vm._s(_vm.faq.question) + " ")
+          _vm._v(" Q: " + _vm._s(_vm.faq.id + " " + _vm.faq.question) + " ")
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "level-right" }, [
-          _c("a", { staticClass: "button is-light" }, [_vm._v("Edit")]),
+          _c(
+            "a",
+            { staticClass: "button is-light", on: { click: _vm.editItem } },
+            [_vm._v("Edit")]
+          ),
           _vm._v(" "),
-          _c("a", { staticClass: "button is-light" }, [_vm._v("Delete")]),
+          _c(
+            "a",
+            { staticClass: "button is-light", on: { click: _vm.deleteItem } },
+            [_vm._v("Delete")]
+          ),
           _vm._v(" "),
           _c(
             "a",

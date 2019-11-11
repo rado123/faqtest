@@ -2,10 +2,10 @@
   <div class="container">
         <li> 
             <div class="level">
-              <div class="level-left is-size-4"> Q: {{ faq.question }} </div>
-                <div class="level-right">
-                  <a class="button is-light">Edit</a>
-                  <a class="button is-light">Delete</a>
+              <div class="level-left is-size-4"> Q: {{ faq.id+" "+faq.question }} </div>
+                <div class="level-right"> 
+                  <a class="button is-light" @click="editItem">Edit</a>
+                  <a class="button is-light" @click="deleteItem">Delete</a>
                   <a class="button is-light" @click="toggleShow">{{ collapseButton() }}</a>
                 </div>
             </div>
@@ -15,8 +15,9 @@
 </template>
 
 <script>
+  import routes from '../routes';
 	export default {
-      props: [
+      props: [ 
           'faqone'
       ],
       data() {
@@ -25,7 +26,7 @@
           showAnswer: false
         }
       },
-     methods: {
+      methods: {
           toggleShow(){
               this.showAnswer=this.showAnswer ? false : true;            
           },
@@ -36,7 +37,25 @@
           // naziv gumba
           collapseButton() {
               return   this.showAnswer ? 'collapse' : 'expand';
-          } 
+          }, 
+          editItem() {
+            console.log('editItem');
+            routes.push('/');
+          },
+          deleteItem() {
+                console.log('delete Item', this.faq.id);
+                let uri = `/faqs/${this.faq.id}`;
+                this.axios.delete(uri)
+                .then(response => {
+                  console.log(response);
+                  alert('faq deleted');
+                  this.$emit('deleted');
+                })
+                .catch(error =>{
+                  console.log(error);
+                  alert('napaka pri delete', error);
+                });
+          }
       }
 
 	};
