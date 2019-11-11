@@ -11,11 +11,6 @@
               ref="previewOne" 
               v-on:deleted="onDeleted(index)">
           </preview-one>
-          <!-- :key,  da briše pravega iz DOM-a po deleted-->
-<!--
-         <p>index={{ index }}</p>
-         <edit :faqone="faq"></edit>
-    -->
       </div>
     </ul>
   </div>
@@ -23,11 +18,9 @@
 
 <script>
   import PreviewOne from './PreviewOne'
-  import Edit from './Edit'
 	export default {
       components: {
         PreviewOne,
-        Edit
       },
       data() {
         return {
@@ -35,7 +28,7 @@
           showAll: true
         }
       },
-  		created()          {
+  		created()  {
             let uri = `/faqs`;
             this.axios.get(uri).then(response => {
               console.log(response);
@@ -48,7 +41,6 @@
       methods: {
             expandAll() {
                 this.setShowAnswerAll(true);
-
             },
             collapseAll() {
                 this.setShowAnswerAll(false);
@@ -60,8 +52,6 @@
                 }  
             },
             onDeleted(index) {
-              console.log('onDeleted',index);
-              console.log(' pred splice',this.faqs);
               this.faqs.splice(index, 1);
               console.log(' po splice',this.faqs);
             }

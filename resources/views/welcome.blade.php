@@ -18,9 +18,7 @@
                 <div class="navbar-start">
                  <router-link class="navbar-item" to="/">Home</router-link>
                  <router-link class="navbar-item"  :to="{ name: 'preview' }">Preview</router-link>
-                 <router-link class="navbar-item"  :to="{ name: 'about' }">About</router-link>
                  <router-link class="navbar-item"  :to="{ name: 'create' }">Create</router-link>
-                 <router-link class="navbar-item"  to="/edit/1">Edit</router-link>
                 </div>
 
                 <div class="navbar-end">

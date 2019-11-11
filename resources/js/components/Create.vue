@@ -6,20 +6,19 @@
           <div class="column is-one-half">
               <div class="message">
                 <div class="message-header">
-                  Faq
+                  FAQ
                 </div>
                 <div class="message-body">
                     <div class="form-group">
-                     <label>Vprašanje</label>
+                     <label>Question</label>
                      <textarea class="textarea" v-model="faq.question" rows="1"></textarea>
 
                     </div>
                 </div>
                 <div class="message-body">
                     <div class="form-group">
-                     <label>Odgovor</label>
+                     <label>Answer</label>
                      <textarea class="textarea" v-model="faq.answer" rows="5"></textarea>
-
                     </div>
                 </div>
               </div>
@@ -28,12 +27,9 @@
       </div>
       <br />
       <div class="form-group">
-          <button class="button">Ustvari faq</button>
+          <button class="button">Save</button>
       </div>
     </form>
-  </div>
-
-
   </div>
 </template>
 

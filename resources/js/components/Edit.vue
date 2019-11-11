@@ -6,29 +6,27 @@
           <div class="column is-one-half">
               <div class="message">
                 <div class="message-header">
-                  id={{ faq.id}}
+                  FAQ
                 </div>
                 <div class="message-body">
                     <div class="form-group">
-                     <label>Vprašanje</label>
+                     <label>Question</label>
                      <textarea class="textarea" v-model="faq.question" rows="1"></textarea>
-
                     </div>
                 </div>
                 <div class="message-body">
                     <div class="form-group">
-                     <label>Odgovor</label>
+                     <label>Answer</label>
                      <textarea class="textarea" v-model="faq.answer" rows="5"></textarea>
 
                     </div>
                 </div>
               </div>
-
           </div>
       </div>
       <br />
       <div class="form-group">
-          <button class="button">Shrani</button>
+          <button class="button">Save</button>
       </div>
     </form>
   </div>
@@ -37,25 +35,27 @@
 
 <script>
 	export default {
-      props: [ 
-          'faqone'
-      ],
       data() {
        return {
-          faq: this.faqone,
+          faq() 
+                  {
+                    // postavimo default vrednosti, da nimamo pri render probleme z undefined
+                    let arr=[];
+                    arr.push({
+                          id:"",
+                          question:"",
+                          answer:""
+                      })
+                    return arr;
+                  }
         }
      },
-  	 mounted() {
-              console.log('Component mounted.')
-       },
      created(){
-     		console.log('komponenta kreirana',this.$route.params.id)
-     		// get faq po id
-
     		let id = this.$route.params.id;
     		let uri = `/faqs/${id}`;
-	        this.axios.get(uri).then(response => {
-	        	console.log(response);
+	        this.axios.get(uri)
+          .then(response => {
+	        	console.log('edit get rsp',response);
 	        	this.faq=response.data;
 	        })
 	        .catch(error =>{
@@ -65,12 +65,11 @@
      methods: {
         updateFaq()
               { 
-                console.log('updateFaq',this.faq);
                 let uri = `/faqs/${this.faq.id}`;
                 this.axios.put(uri, this.faq)
                 .then(response => {
   	              console.log(response);
-  	              alert('faq shranjen');
+                  this.$router.push({ name: 'preview'});
   	            })
   	            .catch(error =>{
   	              console.log(error);
