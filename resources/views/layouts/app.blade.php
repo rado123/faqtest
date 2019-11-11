@@ -3,11 +3,12 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>FAQTEST</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -20,11 +21,11 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div id="app">
+    <div>
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                   Faqtest
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -71,6 +72,23 @@
                 </div>
             </div>
         </nav>
+        <div id='app'>
+          <nav class="navbar" role="navigation" aria-label="main navigation">
+              <div id="navbarfaqtest" class="navbar-menu">
+                <div class="navbar-start">
+                 <router-link class="navbar-item" to="/">Home</router-link>
+                 <router-link class="navbar-item"  :to="{ name: 'preview' }">Preview</router-link>
+                 <router-link class="navbar-item"  :to="{ name: 'create' }">Create</router-link>
+                </div>
+              </div>
+        </nav>
+   
+
+       <hr>
+       <router-view></router-view>
+        </div>
+
+        <script src="js/app.js"></script>
 
         <main class="py-4">
             @yield('content')

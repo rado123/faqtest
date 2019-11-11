@@ -17,10 +17,11 @@ Route::get('/faqs/{faq}', 'FaqController@show');
 Route::put('/faqs/{faq}', 'FaqController@update');
 Route::delete('/faqs/{faq}', 'FaqController@destroy');
 
-Route::get('/{any?}', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/{any?}', function () {
+    return view('layouts.app');
+});
+
