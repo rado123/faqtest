@@ -17,8 +17,7 @@
 <script>
 	export default {
       props: [
-          'faqone',
-          'show'
+          'faqone'
       ],
       data() {
         return {
@@ -26,17 +25,15 @@
           showAnswer: false
         }
       },
-      mounted() {
-        this.showAnswer = this.show;
-      },
-      computed: {
-        this.showAnswer = this.show;
-      },
-      methods: {
+     methods: {
           toggleShow(){
-              console.log('toggleShow');
               this.showAnswer=this.showAnswer ? false : true;            
           },
+          // reakcija na expand/collapse all
+          setShowAnswer: function(value) {
+              this.showAnswer = value;
+          },
+          // naziv gumba
           collapseButton() {
               return   this.showAnswer ? 'collapse' : 'expand';
           } 

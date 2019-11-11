@@ -5,7 +5,7 @@
     <a class="button is-light" @click="collapseAll">Collapse all</a>
     <ul>
       <div v-for="faq in faqs">
-         <preview-one  :faqone="faq" :show="showAllStatus"></preview-one>
+         <preview-one  :faqone="faq" ref="previewOne"></preview-one>
       </div>
     </ul>
   </div>
@@ -28,7 +28,7 @@
                 return this.showAll;
             }
       },
-  		created() {
+  		created()          {
             console.log('Component created.');
             let uri = `/faqs`;
             this.axios.get(uri).then(response => {
@@ -41,12 +41,18 @@
       },
       methods: {
             expandAll() {
-                console.log('expand all');
-                this.showAll=true;
+                this.setShowAnswerAll(true);
+
             },
             collapseAll() {
-                console.log('collapse all');
-                this.showAll=false;
+                this.setShowAnswerAll(false);
+            },
+            setShowAnswerAll(value) {
+                const arrayLength = this.$refs.previewOne.length;
+                for (var i = 0; i < arrayLength; i++) {
+                    console.log(i);
+                    this.$refs.previewOne[i].setShowAnswer(value);
+                }  
             }
       }
 	};
