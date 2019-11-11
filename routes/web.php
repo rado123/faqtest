@@ -20,3 +20,7 @@ Route::delete('/faqs/{faq}', 'FaqController@destroy');
 Route::get('/{any?}', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
