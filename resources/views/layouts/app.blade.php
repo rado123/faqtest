@@ -21,12 +21,6 @@
                 </div>
 
                 <div class="navbar-end">
-                    <div class="theme-switch">
-                      <label class="checkbox">
-                          <input type="checkbox">
-                          Enable dark mode
-                      </label>
-                    </div>
                     @guest
                           <div class="navbar-item">
                             <div class="buttons">
@@ -69,19 +63,5 @@
         </main>
    
         <script src="js/app.js"></script>
-        <script >
-          const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
-
-          function switchTheme(e) {
-              console.log('switchTheme',e);
-              if (e.target.checked) {
-                  document.documentElement.setAttribute('data-theme', 'dark');
-              }
-              else {
-                  document.documentElement.setAttribute('data-theme', 'light');
-              }    
-          }
-          toggleSwitch.addEventListener('change', switchTheme, false);
-        </script>
     </body>
 </html>
