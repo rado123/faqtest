@@ -2,6 +2,8 @@ import About from './components/About'
 import Create from './components/Create'
 import Edit from './components/Edit'
 import Preview from './components/Preview'
+import NotFound from './components/NotFound'
+
 
 export default {
 	mode: 'history',
@@ -9,7 +11,8 @@ export default {
 	routes: [
 		{
 			path: '/',
-			component: About
+			component: About,
+			name: 'about'
 		},
 		
 		{
@@ -26,7 +29,11 @@ export default {
 			path: '/edit/:id',
 			component: Edit,
 			name: 'edit'
-		}
+		},
+		{
+   			 path :'*',
+    		component: NotFound
+  		}
 
 	]
 
