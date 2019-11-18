@@ -1895,34 +1895,55 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       faq: {
         'question': '',
         'answer': ''
-      }
+      },
+      error: null
     };
+  },
+  computed: {
+    questionIsValid: function questionIsValid() {
+      console.log('q is val', this.faq);
+      return !!this.faq.question;
+    },
+    answerIsValid: function answerIsValid() {
+      return true; //
+    },
+    faqIsValid: function faqIsValid() {
+      return this.questionIsValid && this.answerIsValid;
+    }
   },
   methods: {
     addFaq: function addFaq() {
       var _this = this;
 
+      if (!this.faqIsValid) {
+        console.log(" faq is not valid");
+        return;
+      }
+
       var uri = "/faqs";
       this.axios.post(uri, this.faq).then(function (response) {
-        console.log(response);
-        console.log('faq', _this.faq);
-        alert('faq ustvarjen'); // izbrišemo podatke v formi
+        console.log(response); // alert('faq ustvarjen');
+        // izbrišemo podatke v formi
 
         _this.clearFaq();
       })["catch"](function (error) {
-        console.log(error);
-        alert('napaka', error);
+        console.log(error.response.data); // alert('napaka'+error.response.data.message);
+
+        _this.error = error.response.data;
       });
     },
     clearFaq: function clearFaq() {
       this.faq.question = '';
       this.faq.answer = '';
+      this.error = null;
     }
   }
 });
@@ -1973,6 +1994,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1981,8 +2004,21 @@ __webpack_require__.r(__webpack_exports__);
         id: "",
         question: "",
         answer: ""
-      }
+      },
+      error: null
     };
+  },
+  computed: {
+    questionIsValid: function questionIsValid() {
+      console.log('q is val', this.faq);
+      return !!this.faq.question;
+    },
+    answerIsValid: function answerIsValid() {
+      return true; //
+    },
+    faqIsValid: function faqIsValid() {
+      return this.questionIsValid && this.answerIsValid;
+    }
   },
   created: function created() {
     var _this = this;
@@ -2000,16 +2036,23 @@ __webpack_require__.r(__webpack_exports__);
     updateFaq: function updateFaq() {
       var _this2 = this;
 
+      if (!this.faqIsValid) {
+        console.log(" faq is not valid");
+        return;
+      }
+
       var uri = "/faqs/".concat(this.faq.id);
       this.axios.put(uri, this.faq).then(function (response) {
         console.log(response);
+        _this2.error = null;
 
         _this2.$router.push({
           name: 'preview'
         });
       })["catch"](function (error) {
-        console.log(error);
-        alert('napaka', error);
+        console.log(error.response.data); // alert('napaka'+error.response.data.message);
+
+        _this2.error = error.response.data;
       });
     }
   }
@@ -3414,7 +3457,13 @@ var render = function() {
                         _vm.$set(_vm.faq, "question", $event.target.value)
                       }
                     }
-                  })
+                  }),
+                  _vm._v(" "),
+                  !_vm.questionIsValid
+                    ? _c("p", { staticClass: "help is-danger" }, [
+                        _vm._v("question is not valid")
+                      ])
+                    : _vm._e()
                 ])
               ]),
               _vm._v(" "),
@@ -3442,7 +3491,13 @@ var render = function() {
                         _vm.$set(_vm.faq, "answer", $event.target.value)
                       }
                     }
-                  })
+                  }),
+                  _vm._v(" "),
+                  !_vm.answerIsValid
+                    ? _c("p", { staticClass: "help is-danger" }, [
+                        _vm._v("answer is not valid")
+                      ])
+                    : _vm._e()
                 ])
               ])
             ])
@@ -3451,21 +3506,24 @@ var render = function() {
         _vm._v(" "),
         _c("br"),
         _vm._v(" "),
-        _vm._m(0)
+        _c("div", { staticClass: "form-group" }, [
+          _c(
+            "button",
+            { staticClass: "button", attrs: { disabled: !_vm.faqIsValid } },
+            [_vm._v("Save")]
+          )
+        ]),
+        _vm._v(" "),
+        !!_vm.error
+          ? _c("div", { staticClass: "help is-danger" }, [
+              _vm._v("Error: " + _vm._s(_vm.error))
+            ])
+          : _vm._e()
       ]
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("button", { staticClass: "button" }, [_vm._v("Save")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -3532,7 +3590,13 @@ var render = function() {
                         _vm.$set(_vm.faq, "question", $event.target.value)
                       }
                     }
-                  })
+                  }),
+                  _vm._v(" "),
+                  !_vm.questionIsValid
+                    ? _c("p", { staticClass: "help is-danger" }, [
+                        _vm._v("question is not valid")
+                      ])
+                    : _vm._e()
                 ])
               ]),
               _vm._v(" "),
@@ -3560,7 +3624,13 @@ var render = function() {
                         _vm.$set(_vm.faq, "answer", $event.target.value)
                       }
                     }
-                  })
+                  }),
+                  _vm._v(" "),
+                  !_vm.answerIsValid
+                    ? _c("p", { staticClass: "help is-danger" }, [
+                        _vm._v("answer is not valid")
+                      ])
+                    : _vm._e()
                 ])
               ])
             ])
@@ -3569,21 +3639,24 @@ var render = function() {
         _vm._v(" "),
         _c("br"),
         _vm._v(" "),
-        _vm._m(0)
+        _c("div", { staticClass: "form-group" }, [
+          _c(
+            "button",
+            { staticClass: "button", attrs: { disabled: !_vm.faqIsValid } },
+            [_vm._v("Save")]
+          )
+        ]),
+        _vm._v(" "),
+        !!_vm.error
+          ? _c("div", { staticClass: "help is-danger" }, [
+              _vm._v("Error: " + _vm._s(_vm.error))
+            ])
+          : _vm._e()
       ]
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("button", { staticClass: "button" }, [_vm._v("Save")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -18867,14 +18940,15 @@ __webpack_require__.r(__webpack_exports__);
 /*!********************************************!*\
   !*** ./resources/js/components/Create.vue ***!
   \********************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Create_vue_vue_type_template_id_67c71db2___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Create.vue?vue&type=template&id=67c71db2& */ "./resources/js/components/Create.vue?vue&type=template&id=67c71db2&");
 /* harmony import */ var _Create_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Create.vue?vue&type=script&lang=js& */ "./resources/js/components/Create.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _Create_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _Create_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -18904,7 +18978,7 @@ component.options.__file = "resources/js/components/Create.vue"
 /*!*********************************************************************!*\
   !*** ./resources/js/components/Create.vue?vue&type=script&lang=js& ***!
   \*********************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
