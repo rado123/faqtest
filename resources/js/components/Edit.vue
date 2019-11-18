@@ -37,17 +37,12 @@
 	export default {
       data() {
        return {
-          faq() 
-                  {
                     // postavimo default vrednosti, da nimamo pri render probleme z undefined
-                    let arr=[];
-                    arr.push({
-                          id:"",
-                          question:"",
-                          answer:""
-                      })
-                    return arr;
-                  }
+          faq: {
+                  id:"",
+                  question:"",
+                  answer:""
+                }
         }
      },
      created(){

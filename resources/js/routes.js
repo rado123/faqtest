@@ -31,7 +31,7 @@ export default {
 			name: 'edit'
 		},
 		{
-   			 path :'*',
+   			path :'*',
     		component: NotFound
   		}
 

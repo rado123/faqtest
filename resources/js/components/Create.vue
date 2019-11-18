@@ -48,13 +48,21 @@
             let uri = `/faqs`;
             this.axios.post(uri, this.faq).then(response => {
               console.log(response);
+              console.log('faq',this.faq);
               alert('faq ustvarjen');
+              // izbrišemo podatke v formi
+              this.clearFaq();
             })
             .catch(error =>{
               console.log(error);
               alert('napaka', error);
             });
+          },
+          clearFaq(){
+             this.faq.question='';
+             this.faq.answer=''
           }
+
     }
-	};
+  };
 </script>

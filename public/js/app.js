@@ -1906,14 +1906,23 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     addFaq: function addFaq() {
+      var _this = this;
+
       var uri = "/faqs";
       this.axios.post(uri, this.faq).then(function (response) {
         console.log(response);
-        alert('faq ustvarjen');
+        console.log('faq', _this.faq);
+        alert('faq ustvarjen'); // izbrišemo podatke v formi
+
+        _this.clearFaq();
       })["catch"](function (error) {
         console.log(error);
         alert('napaka', error);
       });
+    },
+    clearFaq: function clearFaq() {
+      this.faq.question = '';
+      this.faq.answer = '';
     }
   }
 });
@@ -1967,15 +1976,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      faq: function faq() {
-        // postavimo default vrednosti, da nimamo pri render probleme z undefined
-        var arr = [];
-        arr.push({
-          id: "",
-          question: "",
-          answer: ""
-        });
-        return arr;
+      // postavimo default vrednosti, da nimamo pri render probleme z undefined
+      faq: {
+        id: "",
+        question: "",
+        answer: ""
       }
     };
   },
