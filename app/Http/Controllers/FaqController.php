@@ -100,7 +100,10 @@ class FaqController extends Controller
  protected function validateFaq(Request $request)
  {
     return $request->validate([
-                'question' => ['required']
+                'question' => [
+                    'required',
+                    
+                ]
     ]);     
  }
 

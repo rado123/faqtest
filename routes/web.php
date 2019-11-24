@@ -13,13 +13,7 @@
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/faqs', 'FaqController@index');
-Route::post('/faqs', 'FaqController@store')->middleware('auth');
-Route::get('/faqs/{faq}', 'FaqController@show');
-Route::put('/faqs/{faq}', 'FaqController@update')->middleware('auth');
-Route::delete('/faqs/{faq}', 'FaqController@destroy')->middleware('auth');
-
-
+Route::resource('faqs', 'FaqController')->middleware('auth');
 
 Route::get('/{any?}', function () {
     return view('layouts.app');
