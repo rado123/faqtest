@@ -1,4 +1,5 @@
 import About from './components/About'
+import Home from './components/Home'
 import Create from './components/Create'
 import Edit from './components/Edit'
 import Preview from './components/Preview'
@@ -13,8 +14,12 @@ export default {
 			path: '/',
 			component: About,
 			name: 'about'
-		},
-		
+		},		
+		{
+			path: '/home',
+			component: Home,
+			name: 'home'
+		},		
 		{
 			path: '/create',
 			component: Create,

@@ -7,18 +7,9 @@
           <link rel="stylesheet" href="css/app.css">
     </head>
     <body>
-        <div id='app'>
-          <nav class="navbar" role="navigation" aria-label="main navigation">
+<!--
+      <nav class="navbar" role="navigation" aria-label="main navigation">
               <div id="navbarfaqtest" class="navbar-menu">
-                <div class="navbar-start">
-                @guest
-                @else
-                         <router-link class="navbar-item"  :to="{ name: 'preview' }">Preview</router-link>
-                         <router-link class="navbar-item"  :to="{ name: 'create' }">Create</router-link>
-                @endguest
-                 <router-link class="navbar-item" :to="{ name: 'about' }">About</router-link>
-                </div>
-
                 <div class="navbar-end">
                     @guest
                           <div class="navbar-item">
@@ -41,7 +32,7 @@
                               </a>
                               <a class="button is-light" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                       {{ __('Logout') }}
                               </a>
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
@@ -52,15 +43,13 @@
                 </div>
               </div>
         </nav>
-   
+    -->
+        <hr>
 
-       <hr>
-       <router-view></router-view>
+        <div id='app'>
+          <app></app>
         </div>
-        <main>
-            @yield('content')
-        </main>
-   
+         
         <script src="js/app.js"></script>
     </body>
 </html>

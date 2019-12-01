@@ -11,11 +11,7 @@
 |
 */
 Auth::routes();
-Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('faqs', 'FaqController')->middleware('auth');
 
-Route::get('/{any?}', function () {
-    return view('layouts.app');
-})->middleware('auth');
-
+Route::get('/{any}', 'SpaController@index')->where('any', '.*');
