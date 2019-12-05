@@ -10,7 +10,12 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Auth::routes();
+//Auth::routes();
+Route::post('login', 'Auth\LoginController@login');
+Route::post('logout','Auth\LoginController@logout');
+Route::post('register','Auth\RegisterController@register');
+/*
+*/
 
 Route::resource('faqs', 'FaqController')->middleware('auth');
 

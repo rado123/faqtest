@@ -67,13 +67,11 @@
             this.axios.post(uri, this.faq)
             .then(response => {
               console.log(response);
-              // alert('faq ustvarjen');
               // izbrišemo podatke v formi
               this.clearFaq();
             })
             .catch(error =>{
               console.log(error.response.data);
-              // alert('napaka'+error.response.data.message);
               this.error=error.response.data;
             });
           },

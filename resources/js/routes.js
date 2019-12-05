@@ -4,6 +4,8 @@ import Create from './components/Create'
 import Edit from './components/Edit'
 import Preview from './components/Preview'
 import NotFound from './components/NotFound'
+import Register from './components/Register'
+import Login from './components/Login'
 
 
 export default {
@@ -34,6 +36,16 @@ export default {
 			path: '/edit/:id',
 			component: Edit,
 			name: 'edit'
+		},
+		{
+			path: '/register',
+			component: Register,
+			name: 'register'
+		},
+		{
+			path: '/login',
+			component: Login,
+			name: 'login'
 		},
 		{
    			path :'*',

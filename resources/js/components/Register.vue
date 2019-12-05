@@ -1,0 +1,69 @@
+<template>
+    <div class="container">
+        <div class="card card-default">
+            <div class="card-header">Register</div>
+            <div class="card-body">
+                <form autocomplete="off" @submit.prevent="register" v-if="!success" method="post">
+                    <div class="form-group" v-bind:class="{ 'has-error': has_error && errors.email }">
+                        <label for="name">Name</label>
+                        <input type="" id="email" class="form-control" v-model="name">
+                        <span class="help is-danger" v-if="has_error && errors.name">{{ errors.name }}</span>
+                    </div>
+                    <div class="form-group" v-bind:class="{ 'has-error': has_error && errors.email }">
+                        <label for="email">E-mail</label>
+                        <input type="email" id="email" class="form-control" placeholder="user@example.com" v-model="email">
+                        <span class="help is-danger" v-if="has_error && errors.email">{{ errors.email }}</span>
+                    </div>
+                    <div class="form-group" v-bind:class="{ 'has-error': has_error && errors.password }">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" class="form-control" v-model="password">
+                        <span class="help is-danger" v-if="has_error && errors.password">{{ errors.password }}</span>
+                    </div>
+                    <div class="form-group" v-bind:class="{ 'has-error': has_error && errors.password }">
+                        <label for="password_confirmation">Confirm password</label>
+                        <input type="password" id="password_confirmation" class="form-control" v-model="password_confirmation">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</template>
+<script>
+  export default {
+    data() {
+      return {
+        name: '',
+        email: '',
+        password: '',
+        password_confirmation: '',
+        has_error: false,
+        errors: {},
+        success: false
+      }
+    },
+    methods: {
+      register() {
+            var app = this
+            let uri = `/register`;
+            let data= {
+                    name: app.name,
+                    email: app.email,
+                    password: app.password,
+                    password_confirmation: app.password_confirmation
+                };
+           this.axios.post(uri, data)
+            .then(response => {
+              console.log(response)
+              app.success = true
+              this.$router.push({ name: 'home'});
+            })
+            .catch(error =>{
+               console.log(error.response.data.errors)
+               app.has_error = true
+               app.errors = error.response.data.errors || {}
+            });
+      }
+    }
+  }
+</script>
